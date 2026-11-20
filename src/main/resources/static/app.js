@@ -1,7 +1,6 @@
 const API_URL = "http://localhost:8080/api/students";
 const API_AUTH = "http://localhost:8080/api/auth";
 
-// Initialize page-specific listeners and data on load
 document.addEventListener("DOMContentLoaded", () => {
     if (document.getElementById("studentTableBody")) {
         getAllStudents();
@@ -44,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-// Helper function to reset form state
+
 function resetForm() {
     const studentId = document.getElementById("studentId");
     const studentForm = document.getElementById("studentForm");
@@ -62,7 +61,6 @@ function resetForm() {
     }
 }
 
-// Create a student
 async function createStudent(studentData) {
     try {
         const response = await fetch(API_URL, {
@@ -84,7 +82,6 @@ async function createStudent(studentData) {
     }
 }
 
-// Get all students
 async function getAllStudents() {
     try {
         const response = await fetch(API_URL, {
@@ -123,7 +120,6 @@ async function getAllStudents() {
     }
 }
 
-// Load student into form for editing
 async function initializeStudentFormById(id) {
     try {
         const response = await fetch(`${API_URL}/${id}`, {
@@ -150,7 +146,6 @@ async function initializeStudentFormById(id) {
     }
 }
 
-// Update student
 async function updateStudent(id, studentData) {
     try {
         const response = await fetch(`${API_URL}/${id}`, {
@@ -172,7 +167,6 @@ async function updateStudent(id, studentData) {
     }
 }
 
-// Delete student
 async function deleteStudent(id) {
     if (confirm("Are you sure you want to delete this student?")) {
         try {
@@ -194,7 +188,6 @@ async function deleteStudent(id) {
     }
 }
 
-// Login user
 async function loginUser(loginDto) {
     try {
         const response = await fetch(`${API_AUTH}/auth_login_session`, {
@@ -215,7 +208,6 @@ async function loginUser(loginDto) {
     }
 }
 
-// Logout user
 async function logoutUser() {
     try {
         await fetch(`${API_AUTH}/logout`, {
