@@ -17,7 +17,8 @@ function validateStudentForm() {
         firstName.classList.add("invalid");
         isValid = false;
     } else if (firstName.value.trim().length < 2) {
-        firstNameError.textContent = "First name must be at least 2 characters long.";
+        firstNameError.textContent =
+            "First name must be at least 2 characters long.";
         firstName.classList.add("invalid");
         isValid = false;
     }
@@ -28,7 +29,8 @@ function validateStudentForm() {
         lastName.classList.add("invalid");
         isValid = false;
     } else if (lastName.value.trim().length < 2) {
-        lastNameError.textContent = "Last name must be at least 2 characters long.";
+        lastNameError.textContent =
+            "Last name must be at least 2 characters long.";
         lastName.classList.add("invalid");
         isValid = false;
     }
@@ -42,7 +44,8 @@ function validateStudentForm() {
         email.classList.add("invalid");
         isValid = false;
     } else if (!emailRegex.test(emailValue)) {
-        emailError.textContent = "Please enter a valid email address (e.g., student@example.com).";
+        emailError.textContent =
+            "Please enter a valid email address (e.g., student@example.com).";
         email.classList.add("invalid");
         isValid = false;
     }

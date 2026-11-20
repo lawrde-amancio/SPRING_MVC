@@ -11,7 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
         studentForm.addEventListener("submit", function (e) {
             e.preventDefault();
 
-            if (typeof validateStudentForm === "function" && !validateStudentForm()) {
+            if (typeof validateStudentForm ===
+                "function" && !validateStudentForm()) {
                 return;
             }
 
@@ -107,8 +108,11 @@ async function getAllStudents() {
                     <td>${student.lastName}</td>
                     <td>${student.email}</td>
                     <td>
-                        <button class="btn-edit" onclick="initializeStudentFormById(${student.id})">Edit</button>
-                        <button class="btn-delete" onclick="deleteStudent(${student.id})">Delete</button>
+                        <button class="btn-edit" 
+                        onclick="initializeStudentFormById(${student.id})">
+                        Edit</button>
+                        <button class="btn-delete" 
+                        onclick="deleteStudent(${student.id})">Delete</button>
                     </td>
                 </tr>
             `;
@@ -116,7 +120,8 @@ async function getAllStudents() {
         });
     } catch (error) {
         console.error("Error fetching students:", error);
-        alert("Failed to fetch students. Is your Spring Boot backend running?");
+        alert(
+            "Failed to fetch students. Is your Spring Boot backend running?");
     }
 }
 
@@ -222,7 +227,8 @@ async function logoutUser() {
             await fetch(API_URL, {
                 method: "PUT",
                 headers: {
-                    "Authorization": "Basic " + btoa("invalid_user:wrong_password")
+                    "Authorization": "Basic " + btoa(
+                        "invalid_user:wrong_password")
                 }
             });
         } catch (err) {
