@@ -130,7 +130,7 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.setAllowedOrigins(Arrays.asList(
-            "http://192.168.137.213:5500"));
+            "http://192.168.137.213:3000"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST",
                                                         "PUT", "PATCH",
                                                         "DELETE", "OPTIONS"));

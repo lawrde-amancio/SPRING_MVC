@@ -157,19 +157,22 @@ public class AuthenticationController {
     }
 
     @PostMapping("auth_login_session")
-    public ResponseEntity<?> loginWithSession(@RequestBody AuthLoginDto authLoginDto,
+    public ResponseEntity<?> loginWithSession(
+        @RequestBody AuthLoginDto authLoginDto,
                                                 HttpServletRequest request) {
         Authentication authentication = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(authLoginDto.getUsername(),
-                                                     authLoginDto.getPassword())
+                                                authLoginDto.getPassword())
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         HttpSession session = request.getSession(true);
-        session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
+        session.setAttribute("SPRING_SECURITY_CONTEXT", 
+        SecurityContextHolder.getContext());
 
         Map<String, String> response = new HashMap<>();
-        response.put("message", "Authenticated successfully via session cookie.");
+        response.put(
+            "message", "Authenticated successfully via session cookie.");
         return ResponseEntity.ok(response);
 
     }

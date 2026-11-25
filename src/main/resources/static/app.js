@@ -1,6 +1,10 @@
 const API_URL = "http://localhost:8080/api/students";
 const API_AUTH = "http://localhost:8080/api/auth";
 
+/**
+ * Initializes event listeners and loads initial data once 
+ * the DOM is fully parsed.
+ */
 document.addEventListener("DOMContentLoaded", () => {
     if (document.getElementById("studentTableBody")) {
         getAllStudents();
@@ -44,7 +48,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-
+/**
+ * Resets the student form fields, restores the submit button to its default
+ * "Add Student" state, and clears any active validation styling.
+ *
+ * @returns {void}
+ */
 function resetForm() {
     const studentId = document.getElementById("studentId");
     const studentForm = document.getElementById("studentForm");
@@ -62,6 +71,17 @@ function resetForm() {
     }
 }
 
+/**
+ * Sends a POST request to create a new student record, then resets the form
+ * and refreshes the student table on success.
+ *
+ * @async
+ * @param {Object} studentData - The payload containing new student details.
+ * @param {string} studentData.firstName - The student's first name.
+ * @param {string} studentData.lastName - The student's last name.
+ * @param {string} studentData.email - The student's email address.
+ * @returns {Promise<void>}
+ */
 async function createStudent(studentData) {
     try {
         const response = await fetch(API_URL, {
@@ -83,6 +103,13 @@ async function createStudent(studentData) {
     }
 }
 
+/**
+ * Fetches all students from the backend and renders them into the HTML table.
+ * Redirects to `login.html` if the user is unauthorized (401 or 403).
+ *
+ * @async
+ * @returns {Promise<void>}
+ */
 async function getAllStudents() {
     try {
         const response = await fetch(API_URL, {
@@ -125,6 +152,14 @@ async function getAllStudents() {
     }
 }
 
+/**
+ * Fetches a single student's details by ID and populates the student form
+ * for editing, switching the submit button to "Update" mode.
+ *
+ * @async
+ * @param {number|string} id - The unique identifier of the student to edit.
+ * @returns {Promise<void>}
+ */
 async function initializeStudentFormById(id) {
     try {
         const response = await fetch(`${API_URL}/${id}`, {
@@ -151,6 +186,18 @@ async function initializeStudentFormById(id) {
     }
 }
 
+/**
+ * Sends a PUT request to update an existing student record by ID,
+ * then resets the form and refreshes the student table on success.
+ *
+ * @async
+ * @param {number|string} id - The unique identifier of the student to update.
+ * @param {Object} studentData - The updated student details.
+ * @param {string} studentData.firstName - The updated first name.
+ * @param {string} studentData.lastName - The updated last name.
+ * @param {string} studentData.email - The updated email address.
+ * @returns {Promise<void>}
+ */
 async function updateStudent(id, studentData) {
     try {
         const response = await fetch(`${API_URL}/${id}`, {
@@ -172,6 +219,14 @@ async function updateStudent(id, studentData) {
     }
 }
 
+/**
+ * Prompts the user for confirmation and sends a DELETE request to remove
+ * a student record by ID, refreshing the table upon success.
+ *
+ * @async
+ * @param {number|string} id - The unique identifier of the student to delete.
+ * @returns {Promise<void>}
+ */
 async function deleteStudent(id) {
     if (confirm("Are you sure you want to delete this student?")) {
         try {
@@ -193,6 +248,16 @@ async function deleteStudent(id) {
     }
 }
 
+/**
+ * Authenticates a user by posting credentials to the session login endpoint
+ * and redirects to `index.html` on success.
+ *
+ * @async
+ * @param {Object} loginDto - The user's login credentials.
+ * @param {string} loginDto.username - The user's username.
+ * @param {string} loginDto.password - The user's password.
+ * @returns {Promise<void>}
+ */
 async function loginUser(loginDto) {
     try {
         const response = await fetch(`${API_AUTH}/auth_login_session`, {
@@ -213,6 +278,15 @@ async function loginUser(loginDto) {
     }
 }
 
+/**
+ * Logs out the currently authenticated user, clears the student
+ *  table and form,
+ * attempts to invalidate cached browser Basic Auth credentials, 
+ * and reloads the page.
+ *
+ * @async
+ * @returns {Promise<void>}
+ */
 async function logoutUser() {
     try {
         await fetch(`${API_AUTH}/logout`, {
